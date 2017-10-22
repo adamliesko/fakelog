@@ -61,8 +61,7 @@ func TestRunWithStdout(t *testing.T) {
 }
 
 func TestRunUnknownLogFormat(t *testing.T) {
-	//dir as file, 10 requests per second, 1 second
-	err := run(os.TempDir(), "log-format-of-my-custom-imaginary-toolkit", 10, 1)
+	err := run("", "log-format-of-my-custom-imaginary-toolkit", 10, 1)
 	if err == nil {
 		t.Error("should have got an error with unknown log format")
 	}
