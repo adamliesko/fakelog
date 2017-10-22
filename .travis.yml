@@ -3,16 +3,13 @@ go:
   - 1.9
   - tip
 
-install: true
-  - go get -u gopkg.in/alecthomas/gometalinter.v1
-  - gometalinter --install
+env:
+  global:
+    - PATH=$HOME/gopath/bin:$PATH
+
+install:
+  - go get github.com/mattn/goveralls
 
 script:
-  - GO_FILES=$(find . -iname '*.go' -type f | grep -v /vendor/)
-  - test -z $(gofmt -s -l $GO_FILES)
-  - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+  - $GOPATH/bin/goveralls -service=travis-ci
   - go vet ./...
-  - gometalinter ./...
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)

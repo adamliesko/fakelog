@@ -1,4 +1,4 @@
-package fakelog
+package main
 
 import (
 	"bufio"

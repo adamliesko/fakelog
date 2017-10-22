@@ -1,11 +1,10 @@
 package generator
 
 import (
+	"errors"
 	"regexp"
 	"testing"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 const (

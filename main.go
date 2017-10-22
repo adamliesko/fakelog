@@ -1,4 +1,4 @@
-package fakelog
+package main
 
 import (
 	"flag"
@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	// Apache Common log format
+	// CommonFormat is the Apache Common log format
 	CommonFormat = "common"
-	// Apache Combined log format
+	// CombinedFormat is the Apache Combined log format
 	CombinedFormat = "combined"
 )
 
