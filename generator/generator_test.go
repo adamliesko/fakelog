@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	ApacheCommonLineRegex   = `^(\S+) (\S+) (\S+) \[([\w:/]+\s[+\-]\d{4})\] "(\S+)\s?(\S+)?\s?(\S+)?" (\d{3}|-) (\d+|-)$`
-	ApacheCombinedLineRegex = `^(\S+) (\S+) (\S+) \[([\w:/]+\s[+\-]\d{4})\] "(\S+)\s?(\S+)?\s?(\S+)?" (\d{3}|-) (\d+|-)\s?"?([^"]*)"?\s?"?([^"]*)?"?$`
+	apacheCommonLineRegex   = `^(\S+) (\S+) (\S+) \[([\w:/]+\s[+\-]\d{4})\] "(\S+)\s?(\S+)?\s?(\S+)?" (\d{3}|-) (\d+|-)$`
+	apacheCombinedLineRegex = `^(\S+) (\S+) (\S+) \[([\w:/]+\s[+\-]\d{4})\] "(\S+)\s?(\S+)?\s?(\S+)?" (\d{3}|-) (\d+|-)\s?"?([^"]*)"?\s?"?([^"]*)?"?$`
 )
 
 type testOut struct{ count int }
@@ -87,7 +87,7 @@ func TestFakeLogger_Stop(t *testing.T) {
 }
 
 func TestApacheCommonLogLine(t *testing.T) {
-	reg, err := regexp.Compile(ApacheCommonLineRegex)
+	reg, err := regexp.Compile(apacheCommonLineRegex)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -101,7 +101,7 @@ func TestApacheCommonLogLine(t *testing.T) {
 }
 
 func TestApacheCombinedLogLine(t *testing.T) {
-	reg, err := regexp.Compile(ApacheCombinedLineRegex)
+	reg, err := regexp.Compile(apacheCombinedLineRegex)
 	if err != nil {
 		t.Fatal(err)
 	}
