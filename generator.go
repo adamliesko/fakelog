@@ -1,4 +1,4 @@
-package generator
+package fakelog
 
 import (
 	"fmt"
@@ -17,21 +17,21 @@ const (
 // LineGenerator is the signature of fake log lines generating function.
 type LineGenerator func() string
 
-// FakeLogger generates fake and random log lines.
-type FakeLogger struct {
+// Logger generates fake and random log lines.
+type Logger struct {
 	lineFn LineGenerator
 	out    io.WriteCloser
 	rate   int
 	cancel chan bool
 }
 
-// NewFakeLogger returns configured FakeLogger, enforcing sensible rate.
-func NewFakeLogger(lineFn LineGenerator, out io.WriteCloser, rate int) *FakeLogger {
+// NewLogger returns configured Logger, enforcing sensible rate.
+func NewLogger(lineFn LineGenerator, out io.WriteCloser, rate int) *Logger {
 	if rate > maxRate || rate == 0 {
 		rate = maxRate
 	}
 
-	return &FakeLogger{
+	return &Logger{
 		lineFn: lineFn,
 		out:    out,
 		rate:   rate,
@@ -40,7 +40,7 @@ func NewFakeLogger(lineFn LineGenerator, out io.WriteCloser, rate int) *FakeLogg
 }
 
 // GenerateLogs generates W3-c common log lines with rps of rate to the output out.
-func (g *FakeLogger) GenerateLogs() error {
+func (g *Logger) GenerateLogs() error {
 
 	// we want a bit randomized rate, therefore avoiding to use a predictive ticker
 	sleepBase := int64((1.0 / float64(g.rate)) * float64(maxRate))
@@ -70,8 +70,8 @@ func (g *FakeLogger) GenerateLogs() error {
 	}
 }
 
-// Stop notifies the cancel chanel of a FakeLogger, resulting into stopping it's log generation in GenerateLogs().
-func (g *FakeLogger) Stop() {
+// Stop notifies the cancel chanel of a Logger, resulting into stopping it's log generation in GenerateLogs().
+func (g *Logger) Stop() {
 	g.cancel <- true
 }
 

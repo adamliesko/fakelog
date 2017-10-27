@@ -1,3 +1,4 @@
-// fakelog is a tool for fake and random log generation. It supports writing the logs to Stdout, files or buffers
-// - anything implementing io.WriteCloser interface. Also, support for user defined log line generators functions is implemented.
-package main
+// Package fakelog package provides fake logging mechanism, with the ability to configure it with one of the predefined log generating
+// functions. Supported log formats are Apache Common access logs and Apache Combined access logs. Callers can extend this
+// and provide their own implementations of LineGenerator function.
+package fakelog

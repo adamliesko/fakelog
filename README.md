@@ -48,7 +48,7 @@ import (
  )
 
 logFn := func() string { return time.Now().String() + " hey" }
-fl := generator.NewFakeLogger(logFn, os.Stdout, 200)
+fl := fakelog.Logger(logFn, os.Stdout, 200)
 fl.GenerateLogs()
 
 Output:

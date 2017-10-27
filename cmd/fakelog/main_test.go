@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/adamliesko/fakelog/generator"
+	"github.com/adamliesko/fakelog"
 )
 
 func TestRun(t *testing.T) {
@@ -70,20 +70,20 @@ func TestRunUnknownLogFormat(t *testing.T) {
 func TestPickingLineGenerator(t *testing.T) {
 	tcs := []struct {
 		in  string
-		out generator.LineGenerator
+		out fakelog.LineGenerator
 		err error
 	}{
 		{
 			in:  "",
-			out: generator.ApacheCommonLine,
+			out: fakelog.ApacheCommonLine,
 		},
 		{
 			in:  "common",
-			out: generator.ApacheCommonLine,
+			out: fakelog.ApacheCommonLine,
 		},
 		{
 			in:  "combined",
-			out: generator.ApacheCombinedLine,
+			out: fakelog.ApacheCombinedLine,
 		},
 		{
 			in:  "nginx-custom-logger",

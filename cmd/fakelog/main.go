@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/adamliesko/fakelog/generator"
+	"github.com/adamliesko/fakelog"
 )
 
 const (
@@ -43,10 +43,10 @@ func run(path, format string, rate, dur int) error {
 	if err != nil {
 		return err
 	}
-	fl := generator.NewFakeLogger(lg, f, rate)
+	fl := fakelog.NewLogger(lg, f, rate)
 	// setting our stop condition - elapsed time
 	if dur > 0 {
-		go func(g *generator.FakeLogger) {
+		go func(g *fakelog.Logger) {
 			time.Sleep(time.Duration(dur) * time.Second)
 			g.Stop()
 		}(fl)
@@ -54,12 +54,12 @@ func run(path, format string, rate, dur int) error {
 	return fl.GenerateLogs()
 }
 
-func pickLineGenerator(format string) (generator.LineGenerator, error) {
+func pickLineGenerator(format string) (fakelog.LineGenerator, error) {
 	switch format {
 	case "", CommonFormat:
-		return generator.ApacheCommonLine, nil
+		return fakelog.ApacheCommonLine, nil
 	case CombinedFormat:
-		return generator.ApacheCombinedLine, nil
+		return fakelog.ApacheCombinedLine, nil
 	default:
 		return nil, fmt.Errorf("unknown log format: %s", format)
 	}

@@ -1,4 +1,4 @@
-package generator
+package fakelog
 
 import (
 	"errors"
@@ -31,7 +31,7 @@ func (toe *testOutError) Write(p []byte) (n int, err error) {
 
 func TestFakeLoggerWithTooBigRate_GenerateLogs(t *testing.T) {
 	to := &testOut{}
-	fl := NewFakeLogger(ApacheCommonLine, to, 20000)
+	fl := NewLogger(ApacheCommonLine, to, 20000)
 
 	if fl.rate > maxRate {
 		t.Fatalf("rate %d it bigger then the allowed maxRate %d", fl.rate, maxRate)
@@ -40,7 +40,7 @@ func TestFakeLoggerWithTooBigRate_GenerateLogs(t *testing.T) {
 
 func TestErroneousWriteCloser(t *testing.T) {
 	to := &testOutError{}
-	fl := NewFakeLogger(ApacheCommonLine, to, 20000)
+	fl := NewLogger(ApacheCommonLine, to, 20000)
 
 	err := fl.GenerateLogs()
 	if err == nil {
@@ -53,7 +53,7 @@ func TestErroneousWriteCloser(t *testing.T) {
 
 func TestFakeLogger_Stop(t *testing.T) {
 	to := &testOut{}
-	fl := NewFakeLogger(ApacheCommonLine, to, 200)
+	fl := NewLogger(ApacheCommonLine, to, 200)
 
 	// run the logger async and wait it produces some logs
 	go func() {
@@ -77,7 +77,7 @@ func TestFakeLogger_Stop(t *testing.T) {
 	fl.Stop()
 	// record current count of written lines
 	written := to.count
-	// sleep a little to allow FakeLogger to potentially keep logging
+	// sleep a little to allow Logger to potentially keep logging
 	time.Sleep(1 * time.Second)
 
 	if written != to.count {

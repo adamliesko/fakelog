@@ -1,4 +1,4 @@
-package generator
+package fakelog
 
 import "math/rand"
 
